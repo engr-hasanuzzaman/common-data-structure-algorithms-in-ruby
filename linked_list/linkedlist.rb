@@ -20,7 +20,7 @@ class LindedList
   # insert new node to list tail
   def insert(node)
     @tail.next = node
-    @tail = tail
+    @tail = @tail.next
   end  
 
   # print all node in-order 
@@ -34,10 +34,14 @@ class LindedList
  end
 end 
 
-head = Node.new('sumon')
-link_list = LindedList.new(head)
+nodes = []
+(1..10).each {|index| nodes << Node.new(index)}
+p nodes
+link_list = LindedList.new(Node.new(0))
+nodes.each do |node|
+  link_list.insert(node)
+end  
 link_list.print
-puts "insert new node with value salma"
-link_list.insert(Node.new('salma'))
-link_list.print
-  
+
+
+
