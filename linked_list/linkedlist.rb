@@ -32,16 +32,35 @@ class LindedList
 	    current_node = current_node.next
     end 	
  end
+ 
+ # print list in reverse order
+ # using recursion
+ def print_reverse
+   print_recursively(@head)   
+ end
+ 
+ private
+ 
+ def print_recursively(head)
+   puts "current head is #{head.value}"
+     if head.next != nil
+       print_recursively(head.next)
+     end
+       
+     p head.value
+  end    
 end 
 
 nodes = []
 (1..10).each {|index| nodes << Node.new(index)}
-p nodes
+#p nodes
 link_list = LindedList.new(Node.new(0))
 nodes.each do |node|
   link_list.insert(node)
 end  
-link_list.print
+#link_list.print
+puts "The reverse order version of this linked list is"
+link_list.print_reverse
 
 
 
