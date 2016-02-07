@@ -39,6 +39,29 @@ class LindedList
    print_recursively(@head)   
  end
  
+ # print nth node from last 
+ # example: last 2nd node
+ def print_nth_last_node(number)
+   head, result = @head, @head
+   puts "head is #{head.value if head} and result is #{result.value if result}"
+   number.times do 
+     if head.next != nil
+       head = head.next
+     else
+       break  
+     end
+   end
+   
+   puts "after nth number head is #{head.value}"
+   
+   until head.next == nil
+     result = result.next
+     head = head.next
+   end 
+   
+   return result
+ end     
+ 
  private
  
  def print_recursively(head)
@@ -53,14 +76,15 @@ end
 
 nodes = []
 (1..10).each {|index| nodes << Node.new(index)}
-#p nodes
 link_list = LindedList.new(Node.new(0))
 nodes.each do |node|
   link_list.insert(node)
 end  
-#link_list.print
+link_list.print
 puts "The reverse order version of this linked list is"
 link_list.print_reverse
+nth = 11
+puts "nth last node for #{nth} is #{link_list.print_nth_last_node(nth).value}"
 
 
 
