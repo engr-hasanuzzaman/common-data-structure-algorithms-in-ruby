@@ -6,7 +6,7 @@
 # require file that hold declaretion of node class
 require_relative 'node.rb'
 
-class LindedList
+class LinkedList
   attr_accessor :head, :tail
 
    # Initialize head and tail to same initial Node.
@@ -60,7 +60,26 @@ class LindedList
    end 
    
    return result
- end     
+ end
+
+ def fill_list(number)
+    nodes = []
+   (1..number).each {|index| nodes << Node.new(index)}
+   
+   nodes.each do |node|
+     insert(node)
+   end  
+ end
+
+# remove node by value
+ def remove_node(value)
+   new_head = remove_node_recursively(@head, value)
+   if new_head
+     @head = new_head
+   else
+    puts "You can't empty list"
+   end
+ end      
  
  private
  
@@ -71,12 +90,43 @@ class LindedList
      end
        
      p head.value
+  end
+
+  def remove_node_recursively(current, value)
+   # return if list end 	
+    if current == nil
+      return nil
+    end
+		
+    # check to see if current node is one
+    # to be deleted
+    if current.value == value
+      #save next node
+      tempNextNode = current.next 
+
+      #free current node
+       current = nil
+
+      # Return the NEW pointer to where we
+      #were called from.  I.e., the pointer
+      #the previous call will use to "skip
+      #over" the removed node.
+      return tempNextNode   
+    end
+
+   # Check the rest of the list, fixing the next
+   # pointer in case the next node is the one
+   # removed.
+    current.next =  remove_node_recursively(current.next, value)	
+     
+    return current 
   end    
 end 
 
+=begin
 nodes = []
 (1..10).each {|index| nodes << Node.new(index)}
-link_list = LindedList.new(Node.new(0))
+link_list = LinkedList.new(Node.new(0))
 nodes.each do |node|
   link_list.insert(node)
 end  
@@ -85,6 +135,9 @@ puts "The reverse order version of this linked list is"
 link_list.print_reverse
 nth = 11
 puts "nth last node for #{nth} is #{link_list.print_nth_last_node(nth).value}"
-
-
+value_to_remove = 2
+puts "after removed node with value #{value_to_remove}"
+link_list.remove_node(value_to_remove)
+link_list.print
+=end
 
