@@ -79,7 +79,19 @@ class LinkedList
    else
     puts "You can't empty list"
    end
- end      
+ end  
+
+ def size
+  length = 1
+  current = @head
+
+  while current.next
+    length += 1
+    current =  current.next
+  end
+
+  length
+ end    
  
  private
  
