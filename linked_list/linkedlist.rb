@@ -24,13 +24,15 @@ class LinkedList
   end  
 
   # print all node in-order 
-  def print
+  def print_list
     current_node = @head
 
     until current_node == nil
-	    puts "Current node value is = #{current_node.value}"
+	    print "#{current_node.value} -> "
 	    current_node = current_node.next
-    end 	
+    end
+
+    puts '' 	
  end
  
  # print list in reverse order
@@ -91,8 +93,23 @@ class LinkedList
   end
 
   length
- end    
- 
+ end
+
+ def get_nth_first_node(n)
+  if n <= 0
+    return nil
+  end
+
+  result = @head
+  
+   while n > 1
+      result = result.next
+      n -= 1
+    end 
+
+    result
+ end
+
  private
  
  def print_recursively(head)
